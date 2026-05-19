@@ -1,0 +1,71 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: 知识库
+  # [FIX]: Elasticsearch 配置 - 全文检索 + kNN 语义搜索
+  elasticsearch:
+    uris: http://localhost:9200
+    connection-timeout: 5s
+    socket-timeout: 30s
+  datasource:
+    url: jdbc:mysql://localhost:3306/knowledge_base?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: rootroot
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+
+spring.servlet.multipart:
+  max-file-size: 200MB
+  max-request-size: 200MB
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT 配置
+jwt:
+  # [FIX]: 生产环境请修改为安全的密钥（至少32位）
+  secret: your-256-bit-secret-key-for-jwt-token-generation-must-be-long-enough
+  # 过期时间：2小时（毫秒）
+  expiration: 7200000
+
+# EmailJS 配置
+emailjs:
+  service-id: service_kykqj2c
+  user-id: PTEJrtadvvHsIqYjJ
+  template-id: template_vt8r9mm
+  # [FIX]: 在 https://dashboard.emailjs.com/admin/account/security 开启非浏览器访问后生成的 Private Key
+  private-key: cC4dAODf8TeCRTUnczUej
+
+# 文件上传目录
+app:
+  upload-dir: ./data/uploads
+
+# [FIX]: 搜索与 Embedding 配置
+search:
+  embedding:
+    # [FIX]: 默认关闭向量搜索，避免调用收费 Embedding API
+    # 智谱AI无免费Embedding模型，BM25+IK中文分词已能满足搜索需求
+    # 如需语义搜索能力，设为 true 并配置正确的模型（如 embedding-3，0.5元/百万Tokens）
+    enabled: false
+    model: embedding-3
+    dimensions: 2048
+    api-url: https://open.bigmodel.cn/api/paas/v4/embeddings
+  hybrid:
+    # BM25 全文检索权重
+    keyword-weight: 0.4
+    # kNN 语义检索权重
+    semantic-weight: 0.6

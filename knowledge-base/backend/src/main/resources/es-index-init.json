@@ -1,0 +1,65 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "analyzer": {
+        "ik_max_word": {
+          "type": "custom",
+          "tokenizer": "ik_max_word"
+        },
+        "ik_smart": {
+          "type": "custom",
+          "tokenizer": "ik_smart"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "docId": { "type": "keyword" },
+      "type": { "type": "keyword" },
+      "originalId": { "type": "long" },
+      "knowledgeId": { "type": "long" },
+      "title": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      },
+      "content": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      },
+      "summary": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      },
+      "categoryName": { "type": "keyword" },
+      "fileName": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      },
+      "status": { "type": "integer" },
+      "model": { "type": "keyword" },
+      "role": { "type": "keyword" },
+      "thinking": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      },
+      "createdAt": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      },
+      "contentEmbedding": {
+        "type": "dense_vector",
+        "dims": 2048,
+        "index": true,
+        "similarity": "cosine"
+      }
+    }
+  }
+}

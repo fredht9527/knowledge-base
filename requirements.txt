@@ -1,0 +1,12 @@
+# HTML 转 PDF 依赖（按优先级排列）
+# 推荐使用 Playwright（渲染效果最佳）
+playwright>=1.40.0
+
+# 备选方案：WeasyPrint（纯 Python，无需浏览器）
+weasyprint>=60.0
+
+# 多文件合并支持
+PyPDF2>=3.0.0
+
+# OCR 图片文字识别（用于 AI 聊天图片转文字）
+rapidocr_onnxruntime>=1.2.0

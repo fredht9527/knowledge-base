@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Build
+dist/
+target/
+*.jar
+*.war
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+logs/
+
+# CodeBuddy internal
+.codebuddy/
+.workbuddy/
